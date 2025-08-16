@@ -33,6 +33,7 @@ class BusinessService
      */
     public function registerBusiness(array $data): Business
     {
+        
         $validator = Validator::make($data, [
             'nit' => ['required', 'string', 'unique:business,nit'],
             'business_name' => ['required', 'string', 'max:255'],

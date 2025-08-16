@@ -109,7 +109,6 @@ class AuthController extends Controller
             $userType = $request->input('userType');
             $email = $request->input('email');
             $password = $request->input('password');
-
             $authenticatedUser = $this->authService->login($userType, $email, $password);
 
             if ($authenticatedUser) {
