@@ -40,7 +40,7 @@ class BusinessService
             'owner_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:business,email'],
             'phone' => ['required', 'string', 'max:20'],
-            'business_address' => ['required', 'string', 'max:255'],
+           // 'business_address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 

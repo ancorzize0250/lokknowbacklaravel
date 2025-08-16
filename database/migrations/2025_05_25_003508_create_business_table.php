@@ -21,7 +21,6 @@ class CreateBusinessTable extends Migration
             $table->string('owner_name');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('business_address');
             $table->string('password');
             $table->timestamps();
         });
