@@ -19,6 +19,26 @@ class EloquentBusinessRepository implements BusinessRepositoryInterface
     }
 
     /**
+     * Update a business by ID.
+     *
+     * @param array<string, mixed> $data
+     * @return Business|null
+     */
+    public function update(array $data): ?Business
+    {
+        $id = $data['id'];
+        $business = Business::find($id);
+
+        if (! $business) {
+            return null;
+        }
+
+        $business->update($data);
+
+        return $business;
+    }
+
+    /**
      * Find a business by email.
      *
      * @param string $email

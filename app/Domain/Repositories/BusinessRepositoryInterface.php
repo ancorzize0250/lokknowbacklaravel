@@ -15,6 +15,14 @@ interface BusinessRepositoryInterface
     public function create(array $data): Business;
 
     /**
+     * Edit business information.
+     *
+     * @param array<string, mixed> $data
+     * @return Business
+     */
+    public function update(array $data): ?Business;
+
+    /**
      * Find a business by email.
      *
      * @param string $email

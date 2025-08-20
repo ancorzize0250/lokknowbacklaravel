@@ -51,4 +51,30 @@ class BusinessService
 
         return $this->businessRepository->create($data);
     }
+
+     /**
+     * Edit business information.
+     *
+     * @param array<string, mixed> $data
+     * @return Business
+     * @throws ValidationException
+     */
+    public function editBusiness(array $data): Business
+    {
+        
+        $validator = Validator::make($data, [
+            'id' => ['required', 'integer'],
+            'nit' => ['required', 'string'],
+            'business_name' => ['required', 'string', 'max:255'],
+            'owner_identification' => ['required', 'string', 'max:255'],
+            'owner_name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+        ]);
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        return $this->businessRepository->update($data);
+    }
 }
