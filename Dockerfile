@@ -1,27 +1,38 @@
+# Imagen base con PHP y Composer
 FROM php:8.2-fpm
 
-# Instalar dependencias del sistema y extensiones
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
+    build-essential \
     libpq-dev \
-    unzip \
-    git \
     curl \
-    && docker-php-ext-install pdo pdo_pgsql
+    zip \
+    unzip \
+    git
+
+# Instalar extensiones necesarias de PHP
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Instalar Composer
-COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
-# Copiar proyecto
-WORKDIR /var/www
+# Crear directorio de trabajo
+WORKDIR /var/www/html
+
+# Copiar archivos de la aplicación
 COPY . .
 
 # Instalar dependencias de Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Generar cache de Laravel
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
+# Permisos de storage y bootstrap
+RUN chmod -R 777 storage bootstrap/cache
 
-EXPOSE 10000
-CMD php artisan serve --host=0.0.0.0 --port=10000
+# Generar clave de la app
+RUN php artisan key:generate
+
+# Exponer puerto
+EXPOSE 8000
+
+# Iniciar servidor PHP
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
