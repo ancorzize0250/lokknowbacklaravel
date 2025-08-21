@@ -35,7 +35,7 @@ class TestController extends Controller
     {
         $preguntas = Pregunta::with(['opciones', 'respuestaCorrecta'])
             ->where('respondida', false) // Filtrar por la nueva columna
-            ->inRandomOrder() 
+            ->orderBy('id')
             ->take($this->preguntasPorBloque)
             ->get();
 
