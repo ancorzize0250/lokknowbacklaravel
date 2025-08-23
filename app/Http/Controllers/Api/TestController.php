@@ -119,17 +119,16 @@ class TestController extends Controller
     {
         $validator = Validator::make($request->json()->all(), [
             '*.pregunta' => 'required|string',
-            '*.opciones' => 'required|array|size:4',
+            '*.opciones' => 'required|array',
             '*.opciones.a' => 'required|string',
             '*.opciones.b' => 'required|string',
             '*.opciones.c' => 'required|string',
-            '*.opciones.d' => 'required|string',
-            '*.respuesta_correcta' => 'required|string|in:a,b,c,d',
+            '*.respuesta_correcta' => 'required|string|in:a,b,c',
         ], [
             '*.pregunta.required' => 'El campo pregunta es obligatorio.',
-            '*.opciones.required' => 'El campo opciones es obligatorio y debe ser un array con 4 elementos.',
+            '*.opciones.required' => 'El campo opciones es obligatorio y debe ser un array con 3 elementos.',
             '*.respuesta_correcta.required' => 'El campo respuesta_correcta es obligatorio.',
-            '*.respuesta_correcta.in' => 'La respuesta correcta debe ser una de las siguientes opciones: a, b, c, d.',
+            '*.respuesta_correcta.in' => 'La respuesta correcta debe ser una de las siguientes opciones: a, b, c',
         ]);
 
         if ($validator->fails()) {
